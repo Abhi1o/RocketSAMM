@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd $VERCEL_PROJECT_ROOT/apps/web && bun run build:production",
+  "buildCommand": "bun run build:production",
   "outputDirectory": "apps/web/dist",
   "installCommand": "bun install",
   "framework": null,
