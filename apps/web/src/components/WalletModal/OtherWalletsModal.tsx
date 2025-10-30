@@ -47,31 +47,10 @@ export function OtherWalletsModal() {
 
       <Flex gap="$gap16">
         <Flex row grow alignItems="flex-start">
-          <Flex
-            borderRadius="$rounded16"
-            overflow="hidden"
-            width="100%"
-            transition={`${transitions.duration.fast} ${transitions.timing.inOut}`}
-            data-testid="option-grid"
-          >
-            {/* If uniswap mobile was the last used connector it will be show on the primary window */}
-            {recentConnectorId !== CONNECTION_PROVIDER_IDS.UNISWAP_WALLET_CONNECT_CONNECTOR_ID && (
-              <>
-                <UniswapMobileWalletConnectorOption />
-                {wallets.length > 0 && <Separator />}
-              </>
-            )}
-            {wallets.map((wallet, index) => (
-              <React.Fragment key={wallet.name}>
-                <WalletConnectorOption wallet={wallet} />
-                {index < wallets.length - 1 && <Separator />}
-              </React.Fragment>
-            ))}
-          </Flex>
+       
         </Flex>
         <Flex gap="$gap8">
           <Flex px="$spacing4">
-            <PrivacyPolicyNotice />
           </Flex>
           {showMoonpayText && (
             <Flex borderTopWidth={1} pt="$spacing8" borderColor="$surface3" px="$spacing4">

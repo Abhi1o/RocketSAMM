@@ -33,7 +33,7 @@ export function WalletModalLayout({ children, header, downloadHeader }: WalletMo
           {children}
           <Flex gap="$gap8">
             <Flex px="$spacing4">
-              <PrivacyPolicyNotice />
+              
             </Flex>
             {showMoonpayText && (
               <Flex borderTopWidth={1} pt="$spacing8" borderColor="$surface3" px="$spacing4">

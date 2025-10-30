@@ -77,34 +77,10 @@ export function UniswapWalletOptions() {
             </Flex>
           </OptionContainer>
         ) : !isMobileWeb ? (
-          <DownloadWalletOption />
+          <>
+          </>
         ) : null}
-        <OptionContainer
-          onPress={() => (uniswapMobileWallet ? connectWallet({ wallet: uniswapMobileWallet }) : undefined)}
-        >
-          {isMobileWeb ? (
-            <Image height={iconSizes.icon40} source={UNISWAP_LOGO} width={iconSizes.icon40} />
-          ) : (
-            <ScanQr
-              size={iconSizes.icon40}
-              minWidth={iconSizes.icon40}
-              color="$accent1"
-              backgroundColor="$accent2"
-              borderRadius={8}
-              p={7}
-            />
-          )}
-          <Flex row justifyContent="space-between">
-            <Flex>
-              <Text variant="buttonLabel2" color="$neutral1" whiteSpace="nowrap">
-                <Trans i18nKey="common.uniswapMobile" />
-              </Text>
-              <Text variant="body4" color="$neutral2" whiteSpace="nowrap">
-                {isMobileWeb ? <Trans i18nKey="wallet.appSignIn" /> : <Trans i18nKey="wallet.scanToConnect" />}
-              </Text>
-            </Flex>
-          </Flex>
-        </OptionContainer>
+        {/* RocketSAMM Mobile option removed */}
 
         {isMobileWeb && (
           // If on a mobile web browser show the relevant app store download link

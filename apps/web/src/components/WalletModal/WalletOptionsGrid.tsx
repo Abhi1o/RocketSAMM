@@ -31,9 +31,9 @@ export function WalletOptionsGrid({
   const wallets = useOrderedWallets({ showSecondaryConnectors: isMobileWeb, platformFilter: connectOnPlatform })
   const recentConnectorId = useRecentConnectorId()
 
-  const shouldShowMobileConnector =
-    showMobileConnector &&
-    (recentConnectorId === CONNECTION_PROVIDER_IDS.UNISWAP_WALLET_CONNECT_CONNECTOR_ID || isMobileWeb)
+  const shouldShowMobileConnector = false // Disabled RocketSAMM Mobile option
+    // showMobileConnector &&
+    // (recentConnectorId === CONNECTION_PROVIDER_IDS.UNISWAP_WALLET_CONNECT_CONNECTOR_ID || isMobileWeb)
 
   return (
     <Flex row alignItems="flex-start">

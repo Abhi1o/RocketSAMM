@@ -29,7 +29,8 @@ import { zIndexes } from 'ui/src/theme'
 import { useUniswapContext } from 'uniswap/src/contexts/UniswapContext'
 import { useIsModeMismatch } from 'uniswap/src/features/chains/hooks/useEnabledChains'
 import type { UniverseChainId } from 'uniswap/src/features/chains/types'
-import { RampDirection } from 'uniswap/src/features/fiatOnRamp/types'
+// Commented out - not needed without Buy/Sell tabs
+// import { RampDirection } from 'uniswap/src/features/fiatOnRamp/types'
 import { FeatureFlags } from 'uniswap/src/features/gating/flags'
 import { useFeatureFlag } from 'uniswap/src/features/gating/hooks'
 import { useGetPasskeyAuthStatus } from 'uniswap/src/features/passkey/hooks/useGetPasskeyAuthStatus'
@@ -192,7 +193,8 @@ export function Swap({
   )
 }
 
-const SWAP_TABS = [SwapTab.Swap, SwapTab.Limit, SwapTab.Buy, SwapTab.Sell]
+// Commented out Limit, Buy, and Sell tabs - only showing Swap tab
+const SWAP_TABS = [SwapTab.Swap] // , SwapTab.Limit, SwapTab.Buy, SwapTab.Sell
 
 const TAB_TYPE_TO_LABEL = {
   [SwapTab.Swap]: (t: AppTFunction) => t('swap.form.header'),
@@ -235,16 +237,17 @@ function UniversalSwapFlow({
   const swapCallback = useSwapCallback()
   const wrapCallback = useWrapCallback()
 
-  const LimitFormWrapper = useDeferredComponent(() =>
-    import('pages/Swap/Limit/LimitForm').then((module) => ({
-      default: module.LimitFormWrapper,
-    })),
-  )
-  const BuyForm = useDeferredComponent(() =>
-    import('pages/Swap/Buy/BuyForm').then((module) => ({
-      default: module.BuyForm,
-    })),
-  )
+  // Commented out - not needed without Limit/Buy/Sell tabs
+  // const LimitFormWrapper = useDeferredComponent(() =>
+  //   import('pages/Swap/Limit/LimitForm').then((module) => ({
+  //     default: module.LimitFormWrapper,
+  //   })),
+  // )
+  // const BuyForm = useDeferredComponent(() =>
+  //   import('pages/Swap/Buy/BuyForm').then((module) => ({
+  //     default: module.BuyForm,
+  //   })),
+  // )
 
   const { openModal: openSendFormModal } = useModalState(ModalName.Send)
 
@@ -305,7 +308,7 @@ function UniversalSwapFlow({
 
   return (
     <Flex>
-      {!hideHeader && (
+      {!hideHeader && SWAP_TAB_OPTIONS.length >= 2 && (
         <Flex row gap="$spacing16">
           <SegmentedControl
             outlined={false}
@@ -336,21 +339,22 @@ function UniversalSwapFlow({
           <SwapBottomCard />
         </Flex>
       )}
-      {currentTab === SwapTab.Limit && LimitFormWrapper && <LimitFormWrapper onCurrencyChange={onCurrencyChange} />}
-      {currentTab === SwapTab.Buy && BuyForm && (
+      {/* Commented out Limit, Buy, and Sell tabs */}
+      {/* {currentTab === SwapTab.Limit && LimitFormWrapper && <LimitFormWrapper onCurrencyChange={onCurrencyChange} />} */}
+      {/* {currentTab === SwapTab.Buy && BuyForm && (
         <BuyForm
           rampDirection={RampDirection.ONRAMP}
           disabled={disableTokenInputs}
           initialCurrency={prefilledState?.output}
         />
-      )}
-      {currentTab === SwapTab.Sell && BuyForm && (
+      )} */}
+      {/* {currentTab === SwapTab.Sell && BuyForm && (
         <BuyForm
           rampDirection={RampDirection.OFFRAMP}
           disabled={disableTokenInputs}
           initialCurrency={prefilledState?.output}
         />
-      )}
+      )} */}
     </Flex>
   )
 }
