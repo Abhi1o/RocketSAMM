@@ -22,7 +22,7 @@ const ENABLE_REACT_COMPILER = process.env.ENABLE_REACT_COMPILER === 'true'
 const ReactCompilerConfig = {
   target: '18', // '17' | '18' | '19'
 }
-const DEPLOY_TARGET = process.env.DEPLOY_TARGET || 'cloudflare'
+const DEPLOY_TARGET = process.env.DEPLOY_TARGET || 'vercel'
 const VITE_DISABLE_SOURCEMAP = process.env.VITE_DISABLE_SOURCEMAP === 'true'
 
 const DEFAULT_PORT = 3000
