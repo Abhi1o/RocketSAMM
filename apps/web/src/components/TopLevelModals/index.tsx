@@ -45,7 +45,6 @@ export default function TopLevelModals() {
         <ModalRenderer modalName={ModalName.UniWalletConnect} />
         <ModalRenderer modalName={ModalName.BlockedAccount} />
         {shouldShowDevFlags && <ModalRenderer modalName={ModalName.DevFlags} />}
-        <ModalRenderer modalName={ModalName.Help} />
         <ModalRenderer modalName={ModalName.OffchainActivity} />
         <ModalRenderer modalName={ModalName.ReceiveCryptoModal} />
       </>
@@ -57,7 +56,6 @@ export default function TopLevelModals() {
       <ModalRenderer modalName={ModalName.AddressClaim} />
       <ModalRenderer modalName={ModalName.BlockedAccount} componentProps={{ blockedAddress }} />
       <ModalRenderer modalName={ModalName.UniWalletConnect} />
-      <ModalRenderer modalName={ModalName.Banners} />
       <ModalRenderer modalName={ModalName.OffchainActivity} />
       <ModalRenderer modalName={ModalName.TransactionConfirmation} />
       <ModalRenderer modalName={ModalName.UkDisclaimer} />
@@ -66,7 +64,6 @@ export default function TopLevelModals() {
       <ModalRenderer modalName={ModalName.PrivacyPolicy} />
       <ModalRenderer modalName={ModalName.PrivacyChoices} />
       <ModalRenderer modalName={ModalName.FeatureFlags} />
-      <ModalRenderer modalName={ModalName.SolanaPromo} />
       {shouldShowDevFlags && <ModalRenderer modalName={ModalName.DevFlags} />}
       <ModalRenderer modalName={ModalName.AddLiquidity} />
       <ModalRenderer modalName={ModalName.RemoveLiquidity} />
@@ -75,7 +72,6 @@ export default function TopLevelModals() {
         modalName={ModalName.PasskeysHelp}
         componentProps={{ type: passkeysHelpModalType, accountName: evmAccountName }}
       />
-      <ModalRenderer modalName={ModalName.Help} />
       <ModalRenderer modalName={ModalName.DelegationMismatch} />
       <ModalRenderer modalName={ModalName.ReceiveCryptoModal} />
       <ModalRenderer modalName={ModalName.Send} />

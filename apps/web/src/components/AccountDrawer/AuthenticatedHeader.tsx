@@ -3,7 +3,6 @@ import { CurrencyAmount, Token } from '@uniswap/sdk-core'
 import { MultiBlockchainAddressDisplay } from 'components/AccountDetails/MultiBlockchainAddressDisplay'
 import { ActionTile } from 'components/AccountDrawer/ActionTile'
 import { DisconnectButton } from 'components/AccountDrawer/DisconnectButton'
-import { DownloadGraduatedWalletCard } from 'components/AccountDrawer/DownloadGraduatedWalletCard'
 import { EmptyWallet } from 'components/AccountDrawer/MiniPortfolio/EmptyWallet'
 import { ExtensionDeeplinks } from 'components/AccountDrawer/MiniPortfolio/ExtensionDeeplinks'
 import { useAccountDrawer } from 'components/AccountDrawer/MiniPortfolio/hooks'
@@ -195,7 +194,6 @@ export default function AuthenticatedHeader({
                       onClick={openReceiveCryptoModal}
                     />
                   </Flex>
-                  <DownloadGraduatedWalletCard />
                   <MiniPortfolio evmAddress={evmAddress} svmAddress={svmAddress} />
                 </>
               )}

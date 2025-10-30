@@ -1,5 +1,4 @@
 import Navbar from 'components/NavBar/index'
-import { MobileAppPromoBanner, useMobileAppPromoBannerEligible } from 'components/TopLevelBanners/MobileAppPromoBanner'
 import { UkBanner, useRenderUkBanner } from 'components/TopLevelBanners/UkBanner'
 import { useScroll } from 'hooks/useScroll'
 import { GRID_AREAS } from 'pages/App/utils/shared'
@@ -11,7 +10,6 @@ export const Header = memo(function Header() {
   const { isScrolledDown } = useScroll()
   const isHeaderTransparent = !isScrolledDown
   const renderUkBanner = useRenderUkBanner()
-  const extensionEligible = useMobileAppPromoBannerEligible()
 
   return (
     <Flex
@@ -34,7 +32,6 @@ export const Header = memo(function Header() {
         `}
       </style>
       <Flex position="relative" zIndex={zIndexes.sticky} pointerEvents="auto">
-        {extensionEligible && <MobileAppPromoBanner />}
         {renderUkBanner && <UkBanner />}
       </Flex>
       <Flex

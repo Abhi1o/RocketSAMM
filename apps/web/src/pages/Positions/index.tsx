@@ -16,7 +16,6 @@ import { useAccount } from 'hooks/useAccount'
 import { useInfiniteScroll } from 'hooks/useInfiniteScroll'
 import { useLpIncentives } from 'hooks/useLpIncentives'
 import { atom, useAtom } from 'jotai'
-import { TopPools } from 'pages/Positions/TopPools'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router'
@@ -78,20 +77,7 @@ function DisconnectedWalletView() {
         </Flex>
       </Flex>
       <Flex gap="$gap20" mb="$spacing24">
-        <Flex row gap="$gap12" $sm={{ flexDirection: 'column' }}>
-          <LearnMoreTile
-            width="100%"
-            img={PROVIDE_LIQUIDITY}
-            text={t('liquidity.provideOnProtocols')}
-            link={uniswapUrls.helpArticleUrls.providingLiquidityInfo}
-          />
-          <LearnMoreTile
-            width="100%"
-            img={V4_HOOK}
-            text={t('liquidity.hooks')}
-            link={uniswapUrls.helpArticleUrls.v4HooksInfo}
-          />
-        </Flex>
+       
       </Flex>
     </Flex>
   )
@@ -138,7 +124,7 @@ function LearnMoreTile({
   img,
   text,
   link,
-  width = 344,
+  width,
 }: {
   img: string
   text: string
@@ -152,6 +138,8 @@ function LearnMoreTile({
       target="_blank"
       rel="noopener noreferrer"
       width={width}
+      flexGrow={1}
+      flexBasis={0}
       {...ClickableTamaguiStyle}
       hoverStyle={{ backgroundColor: '$surface1Hovered', borderColor: '$surface3Hovered' }}
     >
@@ -350,16 +338,13 @@ export default function Pool() {
   return (
     <Trace logImpression page={InterfacePageName.Positions}>
       <Flex
-        row
-        justifyContent="space-between"
-        $xl={{ flexDirection: 'column', gap: '$gap16' }}
         width="100%"
-        gap={20}
         py="$spacing24"
         px="$spacing40"
         $lg={{ px: '$spacing20' }}
+        alignItems="center"
       >
-        <Flex grow shrink gap="$spacing24" maxWidth={740} $xl={{ maxWidth: '100%' }}>
+        <Flex gap="$spacing24" width="100%" maxWidth={800} $xl={{ maxWidth: '100%' }}>
           {isLPIncentivesEnabled && (
             <LpIncentiveRewardsCard
               walletAddress={account.address}
@@ -464,24 +449,10 @@ export default function Pool() {
               </Anchor>
             </Flex>
           )}
-        </Flex>
-        <Flex gap="$gap32">
-          <TopPools chainId={chainFilter} />
           {isConnected && (
             <Flex gap="$gap20" mb="$spacing24">
               <Text variant="subheading1">{t('liquidity.learnMoreLabel')}</Text>
-              <Flex gap="$gap12">
-                <LearnMoreTile
-                  img={PROVIDE_LIQUIDITY}
-                  text={t('liquidity.provideOnProtocols')}
-                  link={uniswapUrls.helpArticleUrls.providingLiquidityInfo}
-                />
-                <LearnMoreTile
-                  img={V4_HOOK}
-                  text={t('liquidity.hooks')}
-                  link={uniswapUrls.helpArticleUrls.v4HooksInfo}
-                />
-              </Flex>
+             
               <ExternalArrowLink href={uniswapUrls.helpArticleUrls.positionsLearnMore}>
                 {t('common.button.learn')}
               </ExternalArrowLink>

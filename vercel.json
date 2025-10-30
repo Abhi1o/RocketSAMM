@@ -1,4 +1,8 @@
 {
+  "buildCommand": "cd apps/web && bun run build:production",
+  "outputDirectory": "apps/web/dist",
+  "installCommand": "bun install",
+  "framework": "vite",
   "rewrites": [
     {
       "source": "/(.*)",

@@ -8,9 +8,6 @@ import { createLazy } from 'utils/lazyWithRetry'
 const AddressClaimModal = createLazy(() => import('components/claim/AddressClaimModal'))
 const ConnectedAccountBlocked = createLazy(() => import('components/ConnectedAccountBlocked'))
 const UniwalletModal = createLazy(() => import('components/AccountDrawer/UniwalletModal'))
-const Banners = createLazy(() =>
-  import('components/Banner/shared/Banners').then((module) => ({ default: module.Banners })),
-)
 const OffchainActivityModal = createLazy(() =>
   import('components/AccountDrawer/MiniPortfolio/Activity/OffchainActivityModal').then((module) => ({
     default: module.OffchainActivityModal,
@@ -32,11 +29,6 @@ const PrivacyChoicesModal = createLazy(() =>
   import('components/PrivacyChoices').then((module) => ({ default: module.PrivacyChoicesModal })),
 )
 const FeatureFlagModal = createLazy(() => import('components/FeatureFlagModal/FeatureFlagModal'))
-const SolanaPromoModal = createLazy(() =>
-  import('components/Banner/SolanaPromo/SolanaPromoModal').then((module) => ({
-    default: module.SolanaPromoModal,
-  })),
-)
 const DevFlagsBox = createLazy(() => import('dev/DevFlagsBox'))
 const TokenNotFoundModal = createLazy(() => import('components/NotFoundModal/TokenNotFoundModal'))
 const PoolNotFoundModal = createLazy(() => import('components/NotFoundModal/PoolNotFoundModal'))
@@ -59,9 +51,6 @@ const DelegationMismatchModal = createLazy(() =>
   import('components/delegation/DelegationMismatchModal').then((module) => ({
     default: module.default,
   })),
-)
-const HelpModal = createLazy(() =>
-  import('components/HelpModal/HelpModal').then((module) => ({ default: module.HelpModal })),
 )
 
 const ReceiveCryptoModal = createLazy(() =>
@@ -108,10 +97,6 @@ export const modalRegistry: ModalRegistry = {
     // This modal is opened via WalletConnect Uri, not redux state, so it should always be mounted
     shouldMount: () => true,
   },
-  [ModalName.Banners]: {
-    component: Banners,
-    shouldMount: () => true,
-  },
   [ModalName.OffchainActivity]: {
     component: OffchainActivityModal,
     shouldMount: () => true,
@@ -139,10 +124,6 @@ export const modalRegistry: ModalRegistry = {
   [ModalName.FeatureFlags]: {
     component: FeatureFlagModal,
     shouldMount: (state) => state.application.openModal?.name === ModalName.FeatureFlags,
-  },
-  [ModalName.SolanaPromo]: {
-    component: SolanaPromoModal,
-    shouldMount: (state) => state.application.openModal?.name === ModalName.SolanaPromo,
   },
   [ModalName.AddLiquidity]: {
     component: IncreaseLiquidityModal,
@@ -175,10 +156,6 @@ export const modalRegistry: ModalRegistry = {
   [ModalName.DelegationMismatch]: {
     component: DelegationMismatchModal,
     shouldMount: (state) => state.application.openModal?.name === ModalName.DelegationMismatch,
-  },
-  [ModalName.Help]: {
-    component: HelpModal,
-    shouldMount: () => true,
   },
   [ModalName.ReceiveCryptoModal]: {
     component: ReceiveCryptoModal,
