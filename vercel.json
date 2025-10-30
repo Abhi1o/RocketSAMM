@@ -1,7 +1,4 @@
 {
-  "buildCommand": "DEPLOY_TARGET=vercel bun run --cwd apps/web build:production",
-  "installCommand": "bun install",
-  "outputDirectory": "apps/web/build",
   "rewrites": [
     {
       "source": "/(.*)",
