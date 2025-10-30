@@ -1,0 +1,289 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "extends": "nx/presets/npm.json",
+  "defaultBase": "main",
+  "targetDefaults": {
+    "prepare": {
+      "inputs": [
+        "default",
+        "dependencies"
+      ],
+      "cache": true
+    },
+    "build": {
+      "dependsOn": [
+        "prepare",
+        "^build"
+      ],
+      "inputs": [
+        "dependencies",
+        "sourceFiles",
+        "tsConfig"
+      ],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/build",
+        "{projectRoot}/.next",
+        "{projectRoot}/types"
+      ],
+      "cache": true
+    },
+    "build:production": {
+      "dependsOn": [
+        "prepare"
+      ],
+      "inputs": [
+        "dependencies",
+        "default"
+      ],
+      "outputs": [
+        "{projectRoot}/build"
+      ],
+      "cache": true
+    },
+    "typecheck": {
+      "dependsOn": [
+        "prepare",
+        "^typecheck"
+      ],
+      "inputs": [
+        "sourceFiles"
+      ],
+      "outputs": [],
+      "cache": true
+    },
+    "lint": {
+      "dependsOn": [
+        "typecheck",
+        "@uniswap/biome-config:prepare"
+      ],
+      "inputs": [
+        "default"
+      ],
+      "cache": true
+    },
+    "lint:fix": {
+      "dependsOn": [
+        "typecheck",
+        "@uniswap/biome-config:prepare"
+      ],
+      "cache": false
+    },
+    "test": {
+      "dependsOn": [
+        "^prepare"
+      ],
+      "inputs": [
+        "sourceFiles",
+        "^production",
+        "{projectRoot}/**/*.test.*",
+        "{projectRoot}/**/*.spec.*"
+      ],
+      "cache": true
+    },
+    "test:set1": {
+      "dependsOn": [
+        "^prepare"
+      ],
+      "inputs": [
+        "sourceFiles",
+        "^production",
+        "{projectRoot}/**/*.test.*",
+        "{projectRoot}/**/*.spec.*"
+      ],
+      "cache": true
+    },
+    "test:set2": {
+      "dependsOn": [
+        "^prepare"
+      ],
+      "inputs": [
+        "sourceFiles",
+        "^production",
+        "{projectRoot}/**/*.test.*",
+        "{projectRoot}/**/*.spec.*"
+      ],
+      "cache": true
+    },
+    "test:set3": {
+      "dependsOn": [
+        "^prepare"
+      ],
+      "inputs": [
+        "sourceFiles",
+        "^production",
+        "{projectRoot}/**/*.test.*",
+        "{projectRoot}/**/*.spec.*"
+      ],
+      "cache": true
+    },
+    "test:set4": {
+      "dependsOn": [
+        "^prepare"
+      ],
+      "inputs": [
+        "sourceFiles",
+        "^production",
+        "{projectRoot}/**/*.test.*",
+        "{projectRoot}/**/*.spec.*"
+      ],
+      "cache": true
+    },
+    "format": {
+      "cache": true,
+      "inputs": [
+        "default"
+      ]
+    },
+    "start": {
+      "dependsOn": [
+        "prepare"
+      ],
+      "cache": false
+    },
+    "snapshots": {
+      "dependsOn": [
+        "prepare",
+        "typecheck",
+        "lint"
+      ],
+      "cache": true
+    },
+    "check:circular": {
+      "cache": true
+    },
+    "check:deps:usage": {
+      "cache": true
+    },
+    "storybook:test:standalone": {
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": false
+    },
+    "storybook:build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": false
+    },
+    "graphql:schema": {
+      "inputs": [
+        "{workspaceRoot}/.env.production",
+        "{projectRoot}/graphql.*.ts"
+      ],
+      "outputs": [
+        "{projectRoot}/schema.graphql"
+      ],
+      "cache": true
+    },
+    "graphql:generate": {
+      "inputs": [
+        "{projectRoot}/codegen.ts",
+        "{projectRoot}/src/**/schema.graphql",
+        "{projectRoot}/src/**/queries.graphql",
+        "{projectRoot}/src/**/fragments.ts",
+        "{projectRoot}/src/**/queries.ts",
+        "{projectRoot}/src/graphql/**",
+        "{projectRoot}/src/data/**/*.graphql"
+      ],
+      "outputs": [
+        "{projectRoot}/src/**/types-and-hooks.ts",
+        "{projectRoot}/src/data/graphql/**/__generated__/**",
+        "{projectRoot}/src/data/tradingApi/__generated__/**",
+        "{projectRoot}/data/__generated__/**",
+        "{projectRoot}/graphql/__generated__/**"
+      ],
+      "cache": true
+    },
+    "vite:build:production": {
+      "dependsOn": [
+        "prepare"
+      ],
+      "inputs": [
+        "dependencies",
+        "sourceFiles"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
+      ],
+      "cache": true
+    }
+  },
+  "namedInputs": {
+    "default": [
+      "sharedGlobals",
+      "{projectRoot}/**/*"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/*.spec.tsx",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/*.test.tsx",
+      "!{projectRoot}/**/*.test.ts",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/**/*.stories.tsx",
+      "!{projectRoot}/**/*.stories.ts"
+    ],
+    "sharedGlobals": [
+      "{workspaceRoot}/.github/actions/**/*.yml",
+      "{workspaceRoot}/.github/workflows/*.yml",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/tsconfig.json",
+      "{workspaceRoot}/bun.lock",
+      "{workspaceRoot}/package.json",
+      "{workspaceRoot}/.biome*",
+      "{workspaceRoot}/.eslint*",
+      "{workspaceRoot}/.depcheckrc*",
+      "{workspaceRoot}/.env*",
+      "!{workspaceRoot}/.env.defaults",
+      "{workspaceRoot}/metro.config.*",
+      "{workspaceRoot}/Gemfile*"
+    ],
+    "sourceFiles": [
+      "sharedGlobals",
+      "{projectRoot}/**/*.ts",
+      "{projectRoot}/**/*.tsx",
+      "{projectRoot}/**/*.js",
+      "{projectRoot}/**/*.jsx"
+    ],
+    "dependencies": [
+      "{workspaceRoot}/bun.lock",
+      "{workspaceRoot}/package.json",
+      "{projectRoot}/package.json"
+    ],
+    "tsConfig": [
+      "{projectRoot}/tsconfig*.json"
+    ]
+  },
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "packages"
+  },
+  "sync": {
+    "applyChanges": true
+  },
+  "parallel": 3,
+  "defaultProject": "@universe/web",
+  "generators": {
+    "@nx/js:library": {
+      "buildable": false
+    }
+  },
+  "cacheDirectory": ".nx/cache",
+  "plugins": [
+    {
+      "plugin": "@nx/js/typescript",
+      "options": {
+        "typecheck": {
+          "targetName": "typecheck"
+        },
+        "build": {
+          "targetName": "build",
+          "configName": "tsconfig.json"
+        }
+      }
+    }
+  ]
+}
