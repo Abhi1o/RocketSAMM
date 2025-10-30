@@ -1,6 +1,6 @@
 {
   "buildCommand": "npx nx run @universe/web:build:production",
-  "outputDirectory": "apps/web/dist",
+  "outputDirectory": "apps/web/build/client",
   "installCommand": "bun install",
   "framework": null,
   "bunVersion": "1.x",
