@@ -22,18 +22,7 @@ export function StandardWalletModal(): JSX.Element {
 
   const expandToggle = (
     <Flex row alignItems="center" py={8} userSelect="none" onPress={toggleExpandMoreWallets} {...ClickableTamaguiStyle}>
-      <Separator />
-      <Flex row alignItems="center" mx={18}>
-        <Text variant="body3" color="$neutral2" whiteSpace="nowrap">
-          <Trans i18nKey="wallet.other" />
-        </Text>
-        {expandMoreWallets ? (
-          <DoubleChevron size={20} color="$neutral3" />
-        ) : (
-          <DoubleChevronInverted size={20} color="$neutral3" />
-        )}
-      </Flex>
-      <Separator />
+      
     </Flex>
   )
 

@@ -11,7 +11,6 @@ import { Flex, Image, Text } from 'ui/src'
 import { UNISWAP_LOGO } from 'ui/src/assets'
 import { AppStoreLogo } from 'ui/src/components/icons/AppStoreLogo'
 import { PhoneDownload } from 'ui/src/components/icons/PhoneDownload'
-import { ScanQr } from 'ui/src/components/icons/ScanQr'
 import { iconSizes } from 'ui/src/theme'
 import { CONNECTION_PROVIDER_IDS } from 'uniswap/src/constants/web3'
 import { ElementName } from 'uniswap/src/features/telemetry/constants'
@@ -53,7 +52,6 @@ export function UniswapWalletOptions() {
   const [, setPersistHideMobileAppPromoBanner] = useAtom(persistHideMobileAppPromoBannerAtom)
 
   const uniswapExtensionWallet = useWalletWithId(CONNECTION_PROVIDER_IDS.UNISWAP_EXTENSION_RDNS)
-  const uniswapMobileWallet = useWalletWithId(CONNECTION_PROVIDER_IDS.UNISWAP_WALLET_CONNECT_CONNECTOR_ID)
 
   const { connectWallet } = useConnectWallet()
 

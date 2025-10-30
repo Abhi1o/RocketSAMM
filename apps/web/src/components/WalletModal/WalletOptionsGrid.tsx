@@ -1,12 +1,12 @@
 import { MenuStateVariant, useSetMenuCallback } from 'components/AccountDrawer/menuState'
 import { UniswapMobileWalletConnectorOption } from 'components/WalletModal/UniswapMobileWalletConnectorOption'
 import { OtherWalletsOption, WalletConnectorOption } from 'components/WalletModal/WalletConnectorOption'
-import { useRecentConnectorId } from 'components/Web3Provider/constants'
+// import { useRecentConnectorId } from 'components/Web3Provider/constants' // Not needed - RocketSAMM Mobile disabled
 import { useOrderedWallets } from 'features/wallet/connection/hooks/useOrderedWalletConnectors'
 import { Fragment } from 'react'
 import { transitions } from 'theme/styles'
 import { Flex, Separator } from 'ui/src'
-import { CONNECTION_PROVIDER_IDS } from 'uniswap/src/constants/web3'
+// import { CONNECTION_PROVIDER_IDS } from 'uniswap/src/constants/web3' // Not needed - RocketSAMM Mobile disabled
 import { Platform } from 'uniswap/src/features/platforms/types/Platform'
 import { isMobileWeb } from 'utilities/src/platform'
 
@@ -29,9 +29,10 @@ export function WalletOptionsGrid({
 }: WalletOptionsGridProps): JSX.Element {
   const showOtherWalletsCallback = useSetMenuCallback(MenuStateVariant.OTHER_WALLETS)
   const wallets = useOrderedWallets({ showSecondaryConnectors: isMobileWeb, platformFilter: connectOnPlatform })
-  const recentConnectorId = useRecentConnectorId()
+  // Disabled RocketSAMM Mobile option
+  // const recentConnectorId = useRecentConnectorId()
 
-  const shouldShowMobileConnector = false // Disabled RocketSAMM Mobile option
+  const shouldShowMobileConnector = false
     // showMobileConnector &&
     // (recentConnectorId === CONNECTION_PROVIDER_IDS.UNISWAP_WALLET_CONNECT_CONNECTOR_ID || isMobileWeb)
 
