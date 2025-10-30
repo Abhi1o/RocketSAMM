@@ -14,7 +14,6 @@ import { PoolDetailsStatsButtons } from 'components/Pools/PoolDetails/PoolDetail
 import { PoolDetailsTableTab } from 'components/Pools/PoolDetails/PoolDetailsTable'
 import { useColor } from 'hooks/useColor'
 import styled, { useTheme } from 'lib/styled-components'
-import { ExploreTab } from 'pages/Explore/constants'
 import { useDynamicMetatags } from 'pages/metatags'
 import { getPoolDetailPageTitle } from 'pages/PoolDetails/utils'
 import { useEffect, useMemo, useReducer } from 'react'
@@ -28,7 +27,7 @@ import { breakpoints } from 'ui/src/theme'
 import { getChainInfo } from 'uniswap/src/features/chains/chainInfo'
 import { FeatureFlags } from 'uniswap/src/features/gating/flags'
 import { useFeatureFlag } from 'uniswap/src/features/gating/hooks'
-import { InterfacePageName, ModalName } from 'uniswap/src/features/telemetry/constants'
+import { InterfacePageName } from 'uniswap/src/features/telemetry/constants'
 import Trace from 'uniswap/src/features/telemetry/Trace'
 import { AddressStringFormat, normalizeAddress } from 'uniswap/src/utils/addresses'
 import { isEVMAddress } from 'utilities/src/addresses/evm/evm'
@@ -181,7 +180,7 @@ export default function PoolDetailsPage() {
 
   useEffect(() => {
     if (poolNotFound) {
-      navigate(`/explore/pools?type=${ExploreTab.Pools}&result=${ModalName.NotFound}`)
+      navigate('/')
     }
   }, [poolNotFound, navigate])
 

@@ -147,6 +147,8 @@ The `vercel.json` file is already configured with:
   "outputDirectory": "apps/web/dist",
   "installCommand": "bun install",
   "framework": "vite",
+  "ignoreCommand": "exit 1",
+  "bunVersion": "1.x",
   "rewrites": [
     {
       "source": "/(.*)",
@@ -159,10 +161,23 @@ The `vercel.json` file is already configured with:
 
 This ensures:
 - ✅ Correct build directory (apps/web)
-- ✅ Bun package manager is used
+- ✅ Bun package manager is used (version 1.x)
 - ✅ Production optimizations
 - ✅ SPA routing (all routes go to index.html)
 - ✅ Proper caching headers for assets
+- ✅ Prevents NX auto-detection from building wrong project (ignoreCommand)
+
+**Important Configuration Notes:**
+
+1. **`ignoreCommand: "exit 1"`** - Critical for monorepo deployments
+   - Prevents Vercel from auto-detecting and building the extension project
+   - Forces Vercel to use ONLY the specified buildCommand
+   - Without this, Vercel may build `@uniswap/extension` instead of `@universe/web`
+
+2. **`bunVersion: "1.x"`** - Ensures Bun runtime compatibility
+   - Uses Vercel's installed Bun version (currently 1.2.23)
+   - Prevents version mismatch warnings
+   - Provides optimal performance with Vercel's environment
 
 ---
 
@@ -293,6 +308,23 @@ Subsequent builds are **faster** due to Vercel's caching.
 
 ## Troubleshooting
 
+### Build Error: "No Output Directory named 'dist' found"
+**Problem**: Vercel is building the wrong project (extension instead of web app)
+
+**Solution**: Ensure `vercel.json` has these two critical fields:
+```json
+{
+  "ignoreCommand": "exit 1",
+  "bunVersion": "1.x"
+}
+```
+
+**Why this happens**: Vercel's NX auto-detection overrides your build settings and builds `@uniswap/extension` instead of `@universe/web`. The `ignoreCommand` forces Vercel to use your specified buildCommand only.
+
+**Verify the fix**:
+- Check deployment logs for: `Running target build for project @universe/web` (correct)
+- NOT: `Running target build for project @uniswap/extension` (wrong)
+
 ### Build Fails: "Module not found"
 **Solution**: Ensure all workspace dependencies are linked
 ```bash
@@ -302,13 +334,22 @@ bun g:build
 cd apps/web && bun run build:production
 ```
 
+### Bun Version Mismatch Warning
+**Warning**: `bun version mismatch (Vercel environment)`
+
+**Solution**: Add `"bunVersion": "1.x"` to `vercel.json`
+- This tells Vercel to use its installed Bun version (1.2.23+)
+- Prevents compatibility warnings
+- Ensures optimal performance
+
 ### Build Fails: "Out of memory"
 **Solution**: Increase Node.js memory in build settings
 - Add environment variable: `NODE_OPTIONS=--max_old_space_size=4096`
 
 ### Build Timeout
 **Solution**: Vercel has 45-minute build limit (free tier)
-- Consider upgrading to Pro plan
+- First build takes 5-10 minutes (normal for monorepo)
+- Consider upgrading to Pro plan if timeout persists
 - Or optimize build by removing unused dependencies
 
 ### Environment Variables Not Working

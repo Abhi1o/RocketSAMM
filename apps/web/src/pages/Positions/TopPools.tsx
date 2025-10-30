@@ -52,7 +52,7 @@ export function TopPools({ chainId }: { chainId: UniverseChainId | null }) {
             pools={topBoostedPools.slice(0, MAX_BOOSTED_POOLS)}
             isLoading={exploreStatsLoading}
           />
-          <ExternalArrowLink href="/explore/pools" openInNewTab={false}>
+          <ExternalArrowLink href="/positions" openInNewTab={false}>
             {t('explore.more.unichain')}
           </ExternalArrowLink>
         </Flex>
@@ -60,7 +60,7 @@ export function TopPools({ chainId }: { chainId: UniverseChainId | null }) {
       {displayTopPools && (
         <Flex gap="$gap20">
           <TopPoolsSection title={t('pool.top.tvl')} pools={topPools} isLoading={exploreStatsLoading} />
-          <ExternalArrowLink href="/explore/pools" openInNewTab={false}>
+          <ExternalArrowLink href="/positions" openInNewTab={false}>
             {t('explore.more.pools')}
           </ExternalArrowLink>
         </Flex>

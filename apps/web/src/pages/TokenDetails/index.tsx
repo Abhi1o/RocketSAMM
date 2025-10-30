@@ -6,7 +6,6 @@ import { TokenDetailsPageSkeleton } from 'components/Tokens/TokenDetails/Skeleto
 import { NATIVE_CHAIN_ID } from 'constants/tokens'
 import { useActiveAddresses } from 'features/accounts/store/hooks'
 import { useSrcColor } from 'hooks/useColor'
-import { ExploreTab } from 'pages/Explore/constants'
 import { useDynamicMetatags } from 'pages/metatags'
 import { LoadedTDPContext, MultiChainMap, PendingTDPContext, TDPProvider } from 'pages/TokenDetails/TDPContext'
 import { getTokenPageDescription, getTokenPageTitle } from 'pages/TokenDetails/utils'
@@ -21,7 +20,6 @@ import { getChainInfo } from 'uniswap/src/features/chains/chainInfo'
 import { UniverseChainId } from 'uniswap/src/features/chains/types'
 import { fromGraphQLChain } from 'uniswap/src/features/chains/utils'
 import { usePortfolioBalances } from 'uniswap/src/features/dataApi/balances/balances'
-import { ModalName } from 'uniswap/src/features/telemetry/constants'
 import { buildCurrencyId, buildNativeCurrencyId, isNativeCurrencyAddress } from 'uniswap/src/utils/currencyId'
 import { useChainIdFromUrlParam } from 'utils/chainParams'
 import { getNativeTokenDBAddress } from 'utils/nativeTokens'
@@ -160,10 +158,10 @@ export default function TokenDetailsPage() {
   }, [address, currency, currencyChain, currencyChainId, tokenQueryData?.name, tokenQueryData?.symbol])
   const metatags = useDynamicMetatags(metatagProperties)
 
-  // redirect to /explore if token is not found
+  // redirect to home if token is not found
   useEffect(() => {
     if (!tokenQuery.loading && !currency) {
-      navigate(`/explore?type=${ExploreTab.Tokens}&result=${ModalName.NotFound}`)
+      navigate('/')
     }
   }, [currency, tokenQuery.loading, navigate])
 

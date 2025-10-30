@@ -1,16 +1,16 @@
-# Uniswap Labs: Front End Interfaces
+# RocketSAMM: Decentralized Exchange Platform
 
-This is the **public** repository for Uniswap Labs’ front-end interfaces, including the Web App, Wallet Mobile App, and Wallet Extension. Uniswap is a protocol for decentralized exchange of Ethereum-based assets.
+This repository contains the RocketSAMM front-end interfaces, including the Web App, Wallet Mobile App, and Wallet Extension. RocketSAMM is a decentralized exchange protocol for Ethereum-based assets.
 
 ## Interfaces
 
-- Web: [app.uniswap.org](https://app.uniswap.org)
-- Wallet (mobile + extension): [wallet.uniswap.org](https://wallet.uniswap.org)
+- Web: [app.rocketsamm.com](https://app.rocketsamm.com)
+- Wallet (mobile + extension): Coming soon
 
 ## Install & Apps
 
 ```bash
-git clone git@github.com:Uniswap/interface.git
+git clone <your-repository-url>
 bun install
 bun lfg
 bun web start
@@ -28,32 +28,29 @@ For instructions on the best way to contribute, please review our [Contributing 
 
 ## Socials / Contact
 
-- X (Formerly Twitter): [@Uniswap](https://x.com/Uniswap)
-- Reddit: [/r/Uniswap](https://www.reddit.com/r/Uniswap/)
-- Email: [contact@uniswap.org](mailto:contact@uniswap.org)
-- Discord: [Uniswap](https://discord.com/invite/uniswap)
-- LinkedIn: [Uniswap Labs](https://www.linkedin.com/company/uniswaporg)
+- X (Formerly Twitter): [@RocketSAMM](https://x.com/RocketSAMM)
+- Email: [contact@rocketsamm.com](mailto:contact@rocketsamm.com)
 
-## Uniswap Links
+## RocketSAMM Links
 
-- Website: [uniswap.org](https://uniswap.org/)
-- Docs: [uniswap.org/docs/](https://docs.uniswap.org/)
+- Website: [rocketsamm.com](https://rocketsamm.com/)
+- Docs: [docs.rocketsamm.com](https://docs.rocketsamm.com/)
 
-## Whitepapers
+## Protocol Information
 
-- [V4](https://uniswap.org/whitepaper-v4.pdf)
-- [V3](https://uniswap.org/whitepaper-v3.pdf)
-- [V2](https://uniswap.org/whitepaper.pdf)
-- [V1](https://hackmd.io/C-DvwDSfSxuh-Gd4WKE_ig)
+RocketSAMM is built on proven decentralized exchange technology, supporting:
+- V2 liquidity pools with automatic market-making
+- Token swaps across multiple blockchain networks
+- Decentralized liquidity provision
 
 ## Production & Release Process
 
-Uniswap Labs develops all front-end interfaces in a private repository.
+RocketSAMM continuously develops and improves all front-end interfaces.
 At the end of each development cycle:
 
-1. We publish the latest production-ready code to this public repository.
+1. We publish the latest production-ready code.
 
-2. Releases are automatically tagged — view them in the [Releases tab](https://github.com/Uniswap/interface/releases).
+2. Releases are automatically tagged — view them in the Releases tab.
 
 ## 🗂 Directory Structure
 

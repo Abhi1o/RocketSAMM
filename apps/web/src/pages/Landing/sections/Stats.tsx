@@ -65,8 +65,8 @@ function GetStarted() {
   const { t } = useTranslation()
 
   return (
-    <LearnMoreButton href="/explore">
-      <ExternalLink href="/explore" style={{ stroke: 'unset' }}>
+    <LearnMoreButton href="/swap">
+      <ExternalLink href="/swap" style={{ stroke: 'unset' }}>
         <Flex row gap="$gap8" alignItems="center">
           <Text variant="buttonLabel1">{t('landing.getStarted')}</Text>
           <RightArrow size="$icon.24" color="$neutral1" />

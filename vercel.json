@@ -3,6 +3,8 @@
   "outputDirectory": "apps/web/dist",
   "installCommand": "bun install",
   "framework": "vite",
+  "ignoreCommand": "exit 1",
+  "bunVersion": "1.x",
   "rewrites": [
     {
       "source": "/(.*)",

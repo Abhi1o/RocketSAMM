@@ -1,10 +1,8 @@
-# Uniswap Labs Web Interface
+# RocketSAMM Web Interface
 
-## Accessing the Uniswap Interface
+## Accessing RocketSAMM
 
-To access the Uniswap Interface, use an IPFS gateway link from the
-[latest release](https://github.com/Uniswap/uniswap-interface/releases/latest),
-or visit [app.uniswap.org](https://app.uniswap.org).
+Visit [app.rocketsamm.com](https://app.rocketsamm.com) to access the RocketSAMM decentralized exchange interface.
 
 ## Running the interface locally
 
@@ -13,38 +11,41 @@ bun install
 bun web start
 ```
 
+## Development Server
+
+Start the development server:
+
+```bash
+bun web dev
+```
+
+The app will be available at `http://localhost:3000`
+
+## Building for Production
+
+```bash
+bun web build:production
+```
+
 ## Translations
 
-To get translations to work you'll need to set up 1Password, and then:
+The interface supports 36+ languages. Translation files are located in `packages/uniswap/src/i18n/locales/translations/`.
 
-```
-eval $(op signin)
-```
+To update translations:
 
-Sign into 1Password, then:
-
-```
-bun mobile env:local:download
+```bash
+bun i18n:extract  # Extract translation keys
 ```
 
-Which downs a `.env.defaults.local` file at the root. Finally:
+## RocketSAMM V2 Protocol
 
-```
-bun web i18n:download
-```
+RocketSAMM supports the V2 protocol for decentralized exchange:
 
-Which will download the translations to `./apps/web/src/i18n/locales/translations`.
+- Swap tokens: <https://app.rocketsamm.com/swap>
+- View liquidity pools: <https://app.rocketsamm.com/pools>
+- Add liquidity: <https://app.rocketsamm.com/add>
+- Explore tokens: <https://app.rocketsamm.com/explore/tokens>
 
-## Accessing Uniswap V2
+## Deployment
 
-The Uniswap Interface supports swapping, adding liquidity, removing liquidity and migrating liquidity for Uniswap protocol V2.
-
-- Swap on Uniswap V2: <https://app.uniswap.org/swap?use=v2>
-- View V2 liquidity: <https://app.uniswap.org/pools/v2>
-- Add V2 liquidity: <https://app.uniswap.org/add/v2>
-- Migrate V2 liquidity to V3: <https://app.uniswap.org/migrate/v2>
-
-## Accessing Uniswap V1
-
-The Uniswap V1 interface for mainnet and testnets is accessible via IPFS gateways
-linked from the [v1.0.0 release](https://github.com/Uniswap/uniswap-interface/releases/tag/v1.0.0).
+For deployment instructions, see [VERCEL_DEPLOYMENT.md](../../VERCEL_DEPLOYMENT.md) in the root directory.

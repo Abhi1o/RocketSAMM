@@ -1,9 +1,8 @@
-import { getExploreDescription, getExploreTitle } from 'pages/getExploreTitle'
 import { getAddLiquidityPageTitle, getPositionPageDescription, getPositionPageTitle } from 'pages/getPositionPageTitle'
 // High-traffic pages (index and /swap) should not be lazy-loaded.
 import Landing from 'pages/Landing'
 import Swap from 'pages/Swap'
-import { lazy, ReactNode, Suspense, useMemo } from 'react'
+import { lazy, ReactNode, useMemo } from 'react'
 import { matchPath, Navigate, Route, Routes, useLocation } from 'react-router'
 import { CHROME_EXTENSION_UNINSTALL_URL_PATH } from 'uniswap/src/constants/urls'
 import { FeatureFlags } from 'uniswap/src/features/gating/flags'
@@ -15,10 +14,8 @@ import { isBrowserRouterEnabled } from 'utils/env'
 const CreatePosition = lazy(() => import('pages/CreatePosition/CreatePosition'))
 const AddLiquidityV3WithTokenRedirects = lazy(() => import('pages/AddLiquidityV3/redirects'))
 const AddLiquidityV2WithTokenRedirects = lazy(() => import('pages/AddLiquidityV2/redirects'))
-const RedirectExplore = lazy(() => import('pages/Explore/redirects'))
 const LegacyMigrateV2 = lazy(() => import('pages/MigrateV2'))
 const LegacyMigrateV2Pair = lazy(() => import('pages/MigrateV2/MigrateV2Pair'))
-const MigrateV3 = lazy(() => import('pages/MigrateV3'))
 const NotFound = lazy(() => import('pages/NotFound'))
 const Pool = lazy(() => import('pages/Positions'))
 const LegacyPoolRedirects = lazy(() =>
@@ -33,15 +30,11 @@ const LegacyPositionPageRedirects = lazy(() =>
 const RemoveLiquidityV2WithTokenRedirects = lazy(() =>
   import('pages/LegacyPool/redirects').then((module) => ({ default: module.RemoveLiquidityV2WithTokenRedirects })),
 )
-const PositionPage = lazy(() => import('pages/Positions/PositionPage'))
 const V2PositionPage = lazy(() => import('pages/Positions/V2PositionPage'))
-const PoolDetails = lazy(() => import('pages/PoolDetails'))
-const TokenDetails = lazy(() => import('pages/TokenDetails'))
 const ExtensionPasskeyAuthPopUp = lazy(() => import('pages/ExtensionPasskeyAuthPopUp'))
 const PasskeyManagement = lazy(() => import('pages/PasskeyManagement'))
 const ExtensionUninstall = lazy(() => import('pages/ExtensionUninstall/ExtensionUninstall'))
 const Portfolio = lazy(() => import('pages/Portfolio/Portfolio'))
-const ToucanToken = lazy(() => import('pages/Explore/ToucanToken'))
 
 interface RouterConfig {
   browserRouterEnabled?: boolean
@@ -127,62 +120,6 @@ export const routes: RouteDefinition[] = [
     },
   }),
   createRouteDefinition({
-    path: '/explore',
-    getTitle: getExploreTitle,
-    getDescription: getExploreDescription,
-    nestedPaths: [':tab', ':chainName', ':tab/:chainName'],
-    getElement: () => <RedirectExplore />,
-  }),
-  createRouteDefinition({
-    path: '/explore/tokens/:chainName/:tokenAddress',
-    getTitle: () => i18n.t('common.buyAndSell'),
-    getDescription: () => StaticTitlesAndDescriptions.TDPDescription,
-    getElement: () => (
-      <Suspense fallback={null}>
-        <TokenDetails />
-      </Suspense>
-    ),
-  }),
-  createRouteDefinition({
-    path: '/tokens',
-    getTitle: getExploreTitle,
-    getDescription: getExploreDescription,
-    getElement: () => <Navigate to="/explore/tokens" replace />,
-  }),
-  createRouteDefinition({
-    path: '/tokens/:chainName',
-    getTitle: getExploreTitle,
-    getDescription: getExploreDescription,
-    getElement: () => <RedirectExplore />,
-  }),
-  createRouteDefinition({
-    path: '/tokens/:chainName/:tokenAddress',
-    getTitle: () => StaticTitlesAndDescriptions.DetailsPageBaseTitle,
-    getDescription: () => StaticTitlesAndDescriptions.TDPDescription,
-    getElement: () => <RedirectExplore />,
-  }),
-  createRouteDefinition({
-    path: '/explore/pools/:chainName/:poolAddress',
-    getTitle: () => StaticTitlesAndDescriptions.DetailsPageBaseTitle,
-    getDescription: () => StaticTitlesAndDescriptions.PDPDescription,
-    getElement: () => (
-      <Suspense fallback={null}>
-        <PoolDetails />
-      </Suspense>
-    ),
-  }),
-  createRouteDefinition({
-    path: '/explore/toucan/:id',
-    getTitle: () => StaticTitlesAndDescriptions.DetailsPageBaseTitle,
-    getDescription: () => StaticTitlesAndDescriptions.ToucanPlaceholderDescription,
-    enabled: (args) => args.isToucanEnabled ?? false,
-    getElement: () => (
-      <Suspense fallback={null}>
-        <ToucanToken />
-      </Suspense>
-    ),
-  }),
-  createRouteDefinition({
     path: '/vote/*',
     getTitle: () => i18n.t('title.voteOnGov'),
     getDescription: () => i18n.t('title.uniToken'),
@@ -247,7 +184,6 @@ export const routes: RouteDefinition[] = [
     getElement: () => <CreatePosition />,
     getTitle: getPositionPageTitle,
     getDescription: getPositionPageDescription,
-    nestedPaths: [':protocolVersion'],
   }),
   createRouteDefinition({
     path: '/positions',
@@ -260,30 +196,6 @@ export const routes: RouteDefinition[] = [
     getElement: () => <V2PositionPage />,
     getTitle: getPositionPageTitle,
     getDescription: getPositionPageDescription,
-  }),
-  createRouteDefinition({
-    path: '/positions/v3/:chainName/:tokenId',
-    getElement: () => <PositionPage />,
-    getTitle: getPositionPageTitle,
-    getDescription: getPositionPageDescription,
-  }),
-  createRouteDefinition({
-    path: '/positions/v4/:chainName/:tokenId',
-    getElement: () => <PositionPage />,
-    getTitle: getPositionPageTitle,
-    getDescription: getPositionPageDescription,
-  }),
-  createRouteDefinition({
-    path: '/migrate/v2/:chainName/:pairAddress',
-    getElement: () => <MigrateV3 />,
-    getTitle: () => StaticTitlesAndDescriptions.MigrateTitle,
-    getDescription: () => StaticTitlesAndDescriptions.MigrateDescription,
-  }),
-  createRouteDefinition({
-    path: '/migrate/v3/:chainName/:tokenId',
-    getElement: () => <MigrateV3 />,
-    getTitle: () => StaticTitlesAndDescriptions.MigrateTitleV3,
-    getDescription: () => StaticTitlesAndDescriptions.MigrateDescriptionV4,
   }),
   // Legacy pool routes
   createRouteDefinition({

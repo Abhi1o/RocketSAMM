@@ -1,13 +1,9 @@
 import { PositionStatus, ProtocolVersion } from '@uniswap/client-pools/dist/pools/v1/types_pb'
-import PROVIDE_LIQUIDITY from 'assets/images/provideLiquidity.png'
 import tokenLogo from 'assets/images/token-logo.png'
-import V4_HOOK from 'assets/images/v4Hooks.png'
 import { ExpandoRow } from 'components/AccountDrawer/MiniPortfolio/ExpandoRow'
 import { useAccountDrawer } from 'components/AccountDrawer/MiniPortfolio/hooks'
-import { ExternalArrowLink } from 'components/Liquidity/ExternalArrowLink'
 import { LiquidityPositionCard, LiquidityPositionCardLoader } from 'components/Liquidity/LiquidityPositionCard'
 import { LpIncentiveClaimModal } from 'components/Liquidity/LPIncentives/LpIncentiveClaimModal'
-import LpIncentiveRewardsCard from 'components/Liquidity/LPIncentives/LpIncentiveRewardsCard'
 import { PositionsHeader } from 'components/Liquidity/PositionsHeader'
 import { PositionInfo } from 'components/Liquidity/types'
 import { getPositionUrl } from 'components/Liquidity/utils/getPositionUrl'
@@ -22,13 +18,9 @@ import { Link, useNavigate } from 'react-router'
 import { FixedSizeList } from 'react-window'
 import { usePendingLPTransactionsChangeListener } from 'state/transactions/hooks'
 import { useRequestPositionsForSavedPairs } from 'state/user/hooks'
-import { ClickableTamaguiStyle } from 'theme/components/styles'
-import { Anchor, Button, Flex, Text, useMedia } from 'ui/src'
-import { CloseIconWithHover } from 'ui/src/components/icons/CloseIconWithHover'
-import { InfoCircleFilled } from 'ui/src/components/icons/InfoCircleFilled'
+import { Button, Flex, Text, useMedia } from 'ui/src'
 import { Pools } from 'ui/src/components/icons/Pools'
 import { Wallet } from 'ui/src/components/icons/Wallet'
-import { uniswapUrls } from 'uniswap/src/constants/urls'
 import { useGetPositionsInfiniteQuery } from 'uniswap/src/data/rest/getPositions'
 import { useEnabledChains } from 'uniswap/src/features/chains/hooks/useEnabledChains'
 import { UniverseChainId } from 'uniswap/src/features/chains/types'
@@ -68,7 +60,7 @@ function DisconnectedWalletView() {
           {t('positions.welcome.connect.description')}
         </Text>
         <Flex row gap="$gap8">
-          <Button variant="default" size="small" emphasis="secondary" onPress={() => navigate('/positions/create/v4')}>
+          <Button variant="default" size="small" emphasis="secondary" onPress={() => navigate('/positions/create')}>
             {t('position.new')}
           </Button>
           <Button variant="default" size="small" width={160} onPress={accountDrawer.open}>
@@ -108,10 +100,8 @@ function EmptyPositionsView() {
           {t('positions.noPositions.description')}
         </Text>
         <Flex row gap="$gap8">
-          <Button variant="default" size="small" emphasis="secondary" onPress={() => navigate('/explore/pools')}>
-            {t('pools.explore')}
-          </Button>
-          <Button variant="default" size="small" width={160} onPress={() => navigate('/positions/create/v4')}>
+         
+          <Button variant="default" size="small" width={160} onPress={() => navigate('/positions/create')}>
             {t('position.new')}
           </Button>
         </Flex>
@@ -120,48 +110,8 @@ function EmptyPositionsView() {
   )
 }
 
-function LearnMoreTile({
-  img,
-  text,
-  link,
-  width,
-}: {
-  img: string
-  text: string
-  link?: string
-  width?: number | string
-}) {
-  return (
-    <Anchor
-      href={link}
-      textDecorationLine="none"
-      target="_blank"
-      rel="noopener noreferrer"
-      width={width}
-      flexGrow={1}
-      flexBasis={0}
-      {...ClickableTamaguiStyle}
-      hoverStyle={{ backgroundColor: '$surface1Hovered', borderColor: '$surface3Hovered' }}
-    >
-      <Flex
-        row
-        borderRadius="$rounded20"
-        borderColor="$surface3"
-        borderWidth="$spacing1"
-        borderStyle="solid"
-        alignItems="center"
-        gap="$gap16"
-        overflow="hidden"
-      >
-        <img src={img} style={{ objectFit: 'cover', width: '72px', height: '72px' }} />
-        <Text variant="subheading2">{text}</Text>
-      </Flex>
-    </Anchor>
-  )
-}
-
 const chainFilterAtom = atom<UniverseChainId | null>(null)
-const versionFilterAtom = atom<ProtocolVersion[]>([ProtocolVersion.V4, ProtocolVersion.V3, ProtocolVersion.V2])
+const versionFilterAtom = atom<ProtocolVersion[]>([ProtocolVersion.V2])
 const statusFilterAtom = atom<PositionStatus[]>([PositionStatus.IN_RANGE, PositionStatus.OUT_OF_RANGE])
 
 function VirtualizedPositionsList({
@@ -243,7 +193,6 @@ export default function Pool() {
   const { chains: currentModeChains } = useEnabledChains()
   const [versionFilter, setVersionFilter] = useAtom(versionFilterAtom)
   const [statusFilter, setStatusFilter] = useAtom(statusFilterAtom)
-  const [closedCTADismissed, setClosedCTADismissed] = useState(false)
 
   const isPositionVisible = usePositionVisibilityCheck()
   const [showHiddenPositions, setShowHiddenPositions] = useState(false)
@@ -345,18 +294,7 @@ export default function Pool() {
         alignItems="center"
       >
         <Flex gap="$spacing24" width="100%" maxWidth={800} $xl={{ maxWidth: '100%' }}>
-          {isLPIncentivesEnabled && (
-            <LpIncentiveRewardsCard
-              walletAddress={account.address}
-              onCollectRewards={() => {
-                sendAnalyticsEvent(UniswapEventName.LpIncentiveCollectRewardsButtonClicked)
-                openModal()
-              }}
-              setTokenRewards={setTokenRewards}
-              initialHasCollectedRewards={hasCollectedRewards}
-            />
-          )}
-          <Flex row justifyContent="space-between" alignItems="center" mt={isLPIncentivesEnabled ? '$spacing28' : 0}>
+          <Flex row justifyContent="space-between" alignItems="center">
             <PositionsHeader
               showFilters={account.isConnected}
               selectedChain={chainFilter}
@@ -410,52 +348,6 @@ export default function Pool() {
               {Array.from({ length: 5 }, (_, index) => (
                 <LiquidityPositionCardLoader key={index} />
               ))}
-            </Flex>
-          )}
-          {!statusFilter.includes(PositionStatus.CLOSED) && !closedCTADismissed && account.address && (
-            <Flex
-              borderWidth="$spacing1"
-              borderColor="$surface3"
-              borderRadius="$rounded12"
-              mb="$spacing24"
-              p="$padding12"
-              gap="$gap12"
-              row
-              centered
-            >
-              <Flex height="100%">
-                <InfoCircleFilled color="$neutral2" size="$icon.20" />
-              </Flex>
-              <Flex grow flexBasis={0}>
-                <Text variant="body3" color="$neutral1">
-                  {t('pool.closedCTA.title')}
-                </Text>
-                <Text variant="body3" color="$neutral2">
-                  {t('pool.closedCTA.description')}
-                </Text>
-              </Flex>
-              <CloseIconWithHover onClose={() => setClosedCTADismissed(true)} size="$icon.20" />
-            </Flex>
-          )}
-          {isConnected && (
-            <Flex row centered $sm={{ flexDirection: 'column', alignItems: 'flex-start' }} mb="$spacing24" gap="$gap4">
-              <Text variant="body3" color="$neutral2">
-                {t('pool.import.link.description')}
-              </Text>
-              <Anchor href="/pools/v2/find" textDecorationLine="none">
-                <Text variant="body3" color="$neutral1" {...ClickableTamaguiStyle}>
-                  {t('pool.import.positions.v2')}
-                </Text>
-              </Anchor>
-            </Flex>
-          )}
-          {isConnected && (
-            <Flex gap="$gap20" mb="$spacing24">
-              <Text variant="subheading1">{t('liquidity.learnMoreLabel')}</Text>
-             
-              <ExternalArrowLink href={uniswapUrls.helpArticleUrls.positionsLearnMore}>
-                {t('common.button.learn')}
-              </ExternalArrowLink>
             </Flex>
           )}
         </Flex>
